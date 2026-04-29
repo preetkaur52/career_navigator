@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Career Navigator</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0F172A;
+      color: white;
+    }
+
+    header {
+      background: #2563EB;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .container {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: #1E293B;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .card h3 {
+      color: #2563EB;
+    }
+
+    .btn {
+      background: #2563EB;
+      border: none;
+      padding: 10px 15px;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background: #1d4ed8;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>Career Navigator</header>
+
+<div class="container">
+  <h2>Find Your Dream Job 🚀</h2>
+  <p>Search jobs based on role, location, and experience.</p>
+
+  <div class="cards">
+    <div class="card">
+      <h3>IT Jobs</h3>
+      <p>Software, Data, Web roles</p>
+      <button class="btn">Explore</button>
+    </div>
+
+    <div class="card">
+      <h3>Marketing</h3>
+      <p>Digital & Marketing roles</p>
+      <button class="btn">Explore</button>
+    </div>
+
+    <div class="card">
+      <h3>Finance</h3>
+      <p>Accounts & Finance jobs</p>
+      <button class="btn">Explore</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Powered by IBM watsonx Assistant
+</footer>
+
+<!-- Watson Assistant Chat -->
+<script>
+  window.watsonAssistantChatOptions = {
+    integrationID: "c1bf6dd6-dd93-4257-b098-2246c4b05d30",
+    region: "eu-de",
+    serviceInstanceID: "750bfe58-253b-4083-9046-27f97899422f",
+    onLoad: async (instance) => { await instance.render(); }
+  };
+  setTimeout(function () {
+    const t = document.createElement('script');
+    t.src =
+      "https://web-chat.global.assistant.watson.appdomain.cloud/versions/" +
+      (window.watsonAssistantChatOptions.clientVersion || "latest") +
+      "/WatsonAssistantChatEntry.js";
+    document.head.appendChild(t);
+  });
+</script>
+
+</body>
+</html>
