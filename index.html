@@ -37,7 +37,6 @@
       background: #1E293B;
       padding: 15px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
 
     .card h3 {
@@ -57,13 +56,6 @@
     .btn:hover {
       background: #1d4ed8;
     }
-
-    footer {
-      text-align: center;
-      padding: 10px;
-      font-size: 14px;
-      opacity: 0.7;
-    }
   </style>
 </head>
 
@@ -73,37 +65,33 @@
 
 <div class="container">
   <h2>Find Your Dream Job 🚀</h2>
-  <p>Search jobs based on role, location, and experience.</p>
+  <p>Click the chat icon to start</p>
 
   <div class="cards">
     <div class="card">
       <h3>IT Jobs</h3>
-      <p>Software, Data, Web roles</p>
+      <p>Developer, Analyst roles</p>
       <button class="btn">Explore</button>
     </div>
 
     <div class="card">
       <h3>Marketing</h3>
-      <p>Digital & Marketing roles</p>
+      <p>Digital marketing roles</p>
       <button class="btn">Explore</button>
     </div>
 
     <div class="card">
       <h3>Finance</h3>
-      <p>Accounts & Finance jobs</p>
+      <p>Accounting & finance jobs</p>
       <button class="btn">Explore</button>
     </div>
   </div>
 </div>
 
-<footer>
-  Powered by IBM watsonx Assistant
-</footer>
-
 <!-- Watson Assistant Chat -->
 <script>
   window.watsonAssistantChatOptions = {
-    integrationID: "c1bf6dd6-dd93-4257-b098-2246c4b05d30",
+    integrationID: "ad7f0eaf-a9ac-433f-ae38-3ecd916a8a86",
     region: "eu-de",
     serviceInstanceID: "750bfe58-253b-4083-9046-27f97899422f",
     onLoad: async (instance) => { await instance.render(); }
