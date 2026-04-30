@@ -5,97 +5,221 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Career Navigator</title>
 
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0F172A;
-      color: white;
+    :root{
+      --bg: #0b1220;
+      --panel: rgba(30,41,59,0.6);
+      --panel-solid:#1E293B;
+      --accent:#2563EB;
+      --accent-2:#22C55E;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --ring: rgba(37,99,235,0.35);
     }
 
-    header {
-      background: #2563EB;
-      padding: 15px;
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(37,99,235,.25), transparent 60%),
+        radial-gradient(900px 500px at -10% 110%, rgba(34,197,94,.18), transparent 60%),
+        var(--bg);
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
     }
 
-    .container {
-      padding: 20px;
-      text-align: center;
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: rgba(15,23,42,0.7);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 20px;
+    }
+    .brand{
+      display:flex; gap:10px; align-items:center; font-weight:700;
+    }
+    .brand .dot{
+      width:10px;height:10px;border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),#60a5fa);
+      box-shadow:0 0 12px var(--ring);
     }
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
+    .container{
+      max-width:1100px; width:100%;
+      margin:0 auto; padding:28px 18px 40px;
+      text-align:center;
     }
 
-    .card {
-      background: #1E293B;
-      padding: 15px;
-      border-radius: 10px;
+    h1{
+      margin:10px 0 6px;
+      font-size:34px; letter-spacing:.3px;
+    }
+    .sub{
+      color:var(--muted);
+      margin-bottom:22px;
     }
 
-    .card h3 {
-      color: #2563EB;
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap:18px;
+      margin-top:18px;
     }
 
-    .btn {
-      background: #2563EB;
-      border: none;
-      padding: 10px 15px;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 10px;
+    .card{
+      position:relative;
+      border-radius:16px;
+      padding:18px 16px 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)) , var(--panel);
+      border:1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      overflow:hidden;
     }
 
-    .btn:hover {
-      background: #1d4ed8;
+    .card::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(400px 120px at var(--mx,50%) -10%, rgba(37,99,235,.35), transparent 60%);
+      opacity:.0; transition:opacity .2s ease;
+      pointer-events:none;
+    }
+
+    .card:hover{
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 16px 40px rgba(0,0,0,.5);
+      border-color: rgba(37,99,235,.45);
+    }
+    .card:hover::before{ opacity:.8; }
+
+    .icon{
+      width:42px;height:42px;border-radius:10px;
+      display:inline-flex;align-items:center;justify-content:center;
+      background:rgba(37,99,235,.15);
+      border:1px solid rgba(37,99,235,.35);
+      margin-bottom:10px;
+    }
+
+    .title{ font-weight:700; margin:6px 0 4px; }
+    .desc{ color:var(--muted); font-size:14px; }
+
+    .btn{
+      margin-top:12px;
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:8px;
+      border:1px solid rgba(255,255,255,0.12);
+      background: linear-gradient(180deg, rgba(37,99,235,.9), rgba(37,99,235,.75));
+      color:#fff;
+      padding:10px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+      box-shadow: 0 8px 18px rgba(37,99,235,.35);
+      user-select:none;
+    }
+    .btn.secondary{
+      background: rgba(255,255,255,.06);
+      box-shadow:none;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+    .btn:active{
+      transform: translateY(0);
+      box-shadow: 0 4px 10px rgba(37,99,235,.35);
+    }
+
+    /* Ripple */
+    .ripple{
+      position:absolute; border-radius:50%;
+      transform:scale(0);
+      animation:ripple .5s linear;
+      background: rgba(255,255,255,.35);
+      pointer-events:none;
+    }
+    @keyframes ripple{
+      to{ transform:scale(4); opacity:0; }
+    }
+
+    footer{
+      margin-top:auto;
+      text-align:center;
+      padding:16px;
+      color:var(--muted);
+      font-size:13px;
     }
   </style>
 </head>
 
 <body>
 
-<header>Career Navigator</header>
+<header>
+  <div class="brand">
+    <div class="dot"></div>
+    <div>Career Navigator</div>
+  </div>
+  <div class="btn secondary" onclick="openChat()">Open Chat</div>
+</header>
 
 <div class="container">
-  <h2>Find Your Dream Job 🚀</h2>
-  <p>Click the chat icon to start</p>
+  <h1>Find Your Dream Job 🚀</h1>
+  <div class="sub">Click a category or open chat to start.</div>
 
-  <div class="cards">
-    <div class="card">
-      <h3>IT Jobs</h3>
-      <p>Developer, Analyst roles</p>
-      <button class="btn">Explore</button>
+  <div class="grid">
+
+    <div class="card" onmousemove="glow(event,this)">
+      <div class="icon">💻</div>
+      <div class="title">IT Jobs</div>
+      <div class="desc">Developer, Data, Web roles</div>
+      <button class="btn" onclick="sendQuery(event,'IT jobs')">Explore</button>
     </div>
 
-    <div class="card">
-      <h3>Marketing</h3>
-      <p>Digital marketing roles</p>
-      <button class="btn">Explore</button>
+    <div class="card" onmousemove="glow(event,this)">
+      <div class="icon">📈</div>
+      <div class="title">Marketing</div>
+      <div class="desc">Digital & growth roles</div>
+      <button class="btn" onclick="sendQuery(event,'Marketing jobs')">Explore</button>
     </div>
 
-    <div class="card">
-      <h3>Finance</h3>
-      <p>Accounting & finance jobs</p>
-      <button class="btn">Explore</button>
+    <div class="card" onmousemove="glow(event,this)">
+      <div class="icon">💰</div>
+      <div class="title">Finance</div>
+      <div class="desc">Accounts & finance roles</div>
+      <button class="btn" onclick="sendQuery(event,'Finance jobs')">Explore</button>
     </div>
+
+  </div>
+
+  <div style="margin-top:18px">
+    <button class="btn secondary" onclick="sendQuery(event,'Fresher jobs')">Fresher jobs</button>
+    <button class="btn secondary" onclick="sendQuery(event,'Remote jobs')">Remote jobs</button>
+    <button class="btn secondary" onclick="sendQuery(event,'IT jobs in Delhi')">IT jobs in Delhi</button>
   </div>
 </div>
 
-<!-- Watson Assistant Chat -->
+<footer>Powered by IBM watsonx Assistant</footer>
+
 <script>
+  // ===== Watson Assistant =====
   window.watsonAssistantChatOptions = {
     integrationID: "ad7f0eaf-a9ac-433f-ae38-3ecd916a8a86",
     region: "eu-de",
     serviceInstanceID: "750bfe58-253b-4083-9046-27f97899422f",
-    onLoad: async (instance) => { await instance.render(); }
+    onLoad: async (instance) => {
+      window.waInstance = instance;   // keep global reference
+      await instance.render();
+    }
   };
+
   setTimeout(function () {
     const t = document.createElement('script');
     t.src =
@@ -104,6 +228,41 @@
       "/WatsonAssistantChatEntry.js";
     document.head.appendChild(t);
   });
+
+  // ===== Interaction helpers =====
+  function openChat(){
+    if(window.waInstance){
+      window.waInstance.openWindow();
+    }
+  }
+
+  function sendQuery(e, text){
+    // ripple effect
+    const btn = e.currentTarget;
+    const circle = document.createElement('span');
+    const d = Math.max(btn.clientWidth, btn.clientHeight);
+    circle.style.width = circle.style.height = d + 'px';
+    circle.style.left = (e.clientX - btn.getBoundingClientRect().left - d/2) + 'px';
+    circle.style.top = (e.clientY - btn.getBoundingClientRect().top - d/2) + 'px';
+    circle.className = 'ripple';
+    btn.appendChild(circle);
+    setTimeout(()=>circle.remove(), 500);
+
+    if(window.waInstance){
+      window.waInstance.openWindow();
+      // send message to chatbot
+      window.waInstance.send({ input: { text } });
+    } else {
+      alert('Chat is loading… try again in a second.');
+    }
+  }
+
+  // hover glow tracking
+  function glow(e, el){
+    const rect = el.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    el.style.setProperty('--mx', x + '%');
+  }
 </script>
 
 </body>
